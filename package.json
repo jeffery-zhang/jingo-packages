@@ -1,0 +1,21 @@
+{
+  "name": "pnpm-monorepo-starter",
+  "version": "1.0.0",
+  "description": "A typescript monorepo project based on pnpm workspace",
+  "scripts": {
+    "dev": "pnpm run -r dev",
+    "build": "pnpm run -r build"
+  },
+  "keywords": [
+    "pnpm",
+    "monorepo",
+    "starter",
+    "boilerplate",
+    "vite"
+  ],
+  "author": "JINGO",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.8.2"
+  }
+}

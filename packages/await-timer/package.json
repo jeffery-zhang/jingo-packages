@@ -1,0 +1,24 @@
+{
+  "name": "@jingo/await-timer",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "./build/awaitTimer.js",
+  "types": "./build/awaitTimer.d.ts",
+  "scripts": {
+    "build:types": "tsc -p ./tsconfig.json",
+    "build": "vite build && pnpm build:types"
+  },
+  "keywords": [
+    "jingo",
+    "await",
+    "timer",
+    "loop",
+    "promise",
+    "setInterval",
+    "setTimeout"
+  ],
+  "devDependencies": {
+    "typescript": "~5.7.2",
+    "vite": "^6.2.0"
+  }
+}

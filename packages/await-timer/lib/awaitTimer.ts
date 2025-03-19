@@ -14,7 +14,6 @@ export class AwaitTimer implements IAwaitTimer {
     return this._isStopped
   }
 
-
   constructor(private readonly _callback: LoopCallback, private readonly _delay: number, options?: AwaitTimerOptions) {
     if (options) this._options = { ...this._options, ...options }
     if (this._options.autoStart) this.start()
@@ -35,8 +34,6 @@ export class AwaitTimer implements IAwaitTimer {
   }
 
   start() {
-    console.log('start')
-
     this._isStopped = false
     this._runLoop()
   }

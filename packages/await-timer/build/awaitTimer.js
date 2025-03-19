@@ -1,15 +1,15 @@
-var r = Object.defineProperty;
-var a = (i, t, s) => t in i ? r(i, t, { enumerable: !0, configurable: !0, writable: !0, value: s }) : i[t] = s;
-var e = (i, t, s) => a(i, typeof t != "symbol" ? t + "" : t, s);
+var o = Object.defineProperty;
+var h = (i, t, s) => t in i ? o(i, t, { enumerable: !0, configurable: !0, writable: !0, value: s }) : i[t] = s;
+var e = (i, t, s) => h(i, typeof t != "symbol" ? t + "" : t, s);
 class _ {
-  constructor(t, s, o) {
+  constructor(t, s, r) {
     e(this, "_timer", null);
     e(this, "_isStopped", !0);
     e(this, "_options", {
       immediate: !1,
       autoStart: !0
     });
-    this._callback = t, this._delay = s, o && (this._options = { ...this._options, ...o }), this._options.autoStart && this.start();
+    this._callback = t, this._delay = s, r && (this._options = { ...this._options, ...r }), this._options.autoStart && this.start();
   }
   get isStopped() {
     return this._isStopped;
@@ -26,7 +26,7 @@ class _ {
     }
   }
   start() {
-    console.log("start"), this._isStopped = !1, this._runLoop();
+    this._isStopped = !1, this._runLoop();
   }
   stop() {
     this._timer && clearTimeout(this._timer), this._isStopped = !0;

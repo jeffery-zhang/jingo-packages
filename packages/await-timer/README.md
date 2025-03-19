@@ -1,6 +1,6 @@
-# await-timer
+# @jingoz/await-timer
 
-await-timer 是一个 npm 包，提供了实现轮询功能的能力，用于替代 setInterval，并且可以确保传入的回调函数执行完毕后再开始下一次的循环。
+@jingoz/await-timer 是一个 npm 包，提供了实现轮询功能的能力，用于替代 setInterval，并且可以确保传入的回调函数执行完毕后再开始下一次的循环。
 
 ## 安装
 

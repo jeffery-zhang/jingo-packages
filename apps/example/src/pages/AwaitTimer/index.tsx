@@ -7,8 +7,6 @@ export default function AwaitTimerExample() {
   const timer = useRef<IAwaitTimer | null>(null)
 
   const loopCallback = (): Promise<void> => {
-    console.log('loopCallback')
-
     return new Promise(resolve => {
       setTimeout(() => {
         setCount(prev => prev + 1)

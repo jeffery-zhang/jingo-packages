@@ -1,0 +1,26 @@
+{
+  "name": "@jingoz/file-slicer",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./build/fileSlicer.js",
+  "types": "./build/fileSlicer.d.ts",
+  "scripts": {
+    "build:types": "tsc -p ./tsconfig.json",
+    "build": "vite build && pnpm build:types"
+  },
+  "keywords": [
+    "jingo",
+    "file",
+    "fileSlice",
+    "fileHash",
+    "fileTree"
+  ],
+  "devDependencies": {
+    "@types/node": "^22.13.10",
+    "typescript": "~5.7.2",
+    "vite": "^6.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -8,8 +8,9 @@ export declare class AwaitTimer implements IAwaitTimer {
     private _options;
     get isStopped(): boolean;
     constructor(_callback: LoopCallback, _delay: number, options?: AwaitTimerOptions);
-    _runLoop(): Promise<void>;
-    start(): void;
+    private _invokeCallback;
+    private _runLoop;
+    start(): Promise<void>;
     stop(): void;
     destroy(): void;
 }

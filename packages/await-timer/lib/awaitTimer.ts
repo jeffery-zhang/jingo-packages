@@ -19,29 +19,37 @@ export class AwaitTimer implements IAwaitTimer {
     if (this._options.autoStart) this.start()
   }
 
-  async _runLoop() {
-    if (this._isStopped) return
-    if (this._timer) clearTimeout(this._timer)
-    if (this._options.immediate) {
-      try {
-        await this._callback()
-      } catch (error) {
-        console.error('An Error Occured in the loop: ')
-        throw error as Error
-      }
+  private async _invokeCallback() {
+    try {
+      await this._callback()
+    } catch (error) {
+      console.error('An Error Occured while polling')
+      throw error as Error
     }
-    this._timer = setTimeout(() => this._runLoop(), this._delay)
   }
 
-  start() {
+  private _runLoop() {
+    if (this._isStopped) return
+
+    if (this._timer) clearTimeout(this._timer)
+    this._timer = setTimeout(async () => {
+      await this._invokeCallback()
+      this._runLoop()
+    }, this._delay)
+  }
+
+  public async start() {
     this._isStopped = false
+    if (this._options.immediate) {
+      await this._invokeCallback()
+    }
     this._runLoop()
   }
-  stop() {
+  public stop() {
     if (this._timer) clearTimeout(this._timer)
     this._isStopped = true
   }
-  destroy() {
+  public destroy() {
     this.stop()
     this._timer = null
   }

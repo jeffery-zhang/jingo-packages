@@ -3,7 +3,7 @@ export type SyncFunction = (...args: any[]) => any;
 export type LoopCallback = AsyncFunction | SyncFunction;
 export interface IAwaitTimer {
     isStopped: boolean;
-    start: () => void;
+    start: () => Promise<void>;
     stop: () => void;
     destroy: () => void;
 }

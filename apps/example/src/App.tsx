@@ -1,6 +1,3 @@
-import { useEffect, useRef, useState } from 'react'
-
-import { AwaitTimer, IAwaitTimer } from '@jingoz/await-timer'
 import { Route, Routes } from 'react-router'
 import Layout from './pages'
 import AwaitTimerExample from './pages/AwaitTimer'

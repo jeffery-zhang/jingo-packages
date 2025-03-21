@@ -6,7 +6,7 @@ export default {
     lib: {
       name: 'fileSlicer',
       entry: 'lib/index.ts',
-      fileName: 'fileSlicer',
+      fileName: 'index',
     },
   },
 } satisfies UserConfig

@@ -12,6 +12,11 @@ const menus: MenuType[] = [
     name: 'Await Timer',
     path: '/await-timer',
   },
+  {
+    key: '/file-slicer',
+    name: 'File Slicer',
+    path: '/file-slicer',
+  },
 ]
 
 export default function Layout() {

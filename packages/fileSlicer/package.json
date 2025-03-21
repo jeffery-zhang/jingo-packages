@@ -2,8 +2,8 @@
   "name": "@jingoz/file-slicer",
   "version": "0.0.1",
   "type": "module",
-  "main": "./build/fileSlicer.js",
-  "types": "./build/fileSlicer.d.ts",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
   "scripts": {
     "build:types": "tsc -p ./tsconfig.json",
     "build": "vite build && pnpm build:types"

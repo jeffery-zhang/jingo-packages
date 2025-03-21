@@ -36,7 +36,8 @@ export class FileWithHash implements IFileWithHash {
       const uint8Array = new Uint8Array(hash)
       return [...uint8Array].map(x => x.toString(16).padStart(2, '0').toUpperCase()).join('')
     } catch (error) {
-      if (error instanceof Error) throw error
+      console.error(error);
+      throw new Error('calculate hash error')
     }
   }
 

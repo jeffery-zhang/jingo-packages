@@ -1,7 +1,7 @@
 import { FileWithHash } from './fileWithHash'
 import { IChunkItem, IFileSlicer } from './types'
 
-export const DEFAULT_CHUNK_SIZE = 20 * 1024 * 1024
+export const DEFAULT_CHUNK_SIZE = 1 * 1024 * 1024
 
 export class ChunkItem implements IChunkItem {
   constructor(public body: ArrayBuffer, public partialHash: string, public position: number, public offset: number) {}
@@ -20,7 +20,7 @@ export class FileSlicer extends FileWithHash implements IFileSlicer {
 
   public splitFile(start?: number, end?: number): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      if (!this._file) return reject(new Error('文件不存在'))
+      if (!this._file) return reject(new Error('file not exists'))
       let position = start ?? 0
       const endPosition = end ?? this.fileSize
       const reader = new FileReader()
@@ -38,7 +38,7 @@ export class FileSlicer extends FileWithHash implements IFileSlicer {
       }
 
       reader.onload = async (e: ProgressEvent<FileReader>) => {
-        if (!e.target?.result) return reject(new Error('文件读取失败'))
+        if (!e.target?.result) return reject(new Error('read file error'))
         const result = e.target.result
         const sliceHash = await this._arrayBufferToHash(result as ArrayBuffer)
         if (sliceHash) {
@@ -52,17 +52,15 @@ export class FileSlicer extends FileWithHash implements IFileSlicer {
       }
 
       reader.addEventListener('error', () => {
-        return reject(new Error('文件读取失败'))
+        return reject(new Error('read file error'))
       })
 
       read()
     })
   }
 
-  public destroy(all: boolean = false): void {
-    if (all) {
-      this._file = undefined
-    }
+  public destroy(): void {
+    this._file = undefined
     this._chunks = []
   }
 }

@@ -1,52 +1,52 @@
-# @jingoz/await-timer
+# @jingoz/file-slicer
 
-@jingoz/await-timer 是一个 npm 包，提供了实现轮询功能的能力，用于替代 setInterval，并且可以确保传入的回调函数执行完毕后再开始下一次的循环。
+@jingoz/file-slicer 是一个 npm 包，提供了文件根据自定义大小分片并计算 hash 的功能。
 
 ## 安装
 
 使用 npm 进行安装：
 
 ```sh
-npm install @jingoz/await-timer
+npm install @jingoz/file-slicer
 ```
 
 或者使用 yarn 进行安装：
 
 ```sh
-yarn add @jingoz/await-timer
+yarn add @jingoz/file-slicer
 ```
 
 或者使用 pnpm 进行安装：
 
 ```sh
-pnpm add @jingoz/await-timer
+pnpm add @jingoz/file-slicer
 ```
 
 ## 使用方法
 
 ```ts
-import { AwaitTimer } from '@jingoz/await-timer'
-import type { IAwaitTimer, AwaitTimerOptions, LoopCallback } from '@jingoz/await-timer'
+import { FileSlicer } from '@jingoz/file-slicer'
 
-// 定义你的回调函数
-const callback: LoopCallback = async () => {
-  // 在这里编写你的轮询逻辑
+// 通过 input 获取到 file
+// 创建实例
+const slicer = new FileSlicer(file, 1 * 1024 * 1024)
+console.log(slicer.fileName)
+console.log(slicer.fileSize)
+await calcFullHash()
+await splitFile()
+
+// 计算文件完整 hash
+const calcFullHash = async () => {
+  if (!slicer) return
+  await slicer.calcFileHash()
 }
 
-// 实例化 AwaitTimer
-const options: AwaitTimerOptions = {
-  immediate: true, // 是否立即执行第一次循环，默认为 false
-  autoStart: true, // 是否自动开始循环，默认为 true
+// 分片
+const splitFile = async () => {
+  if (!slicer) return
+  await slicer.splitFile()
+  slicer.chunks.forEach(chunk => {
+    console.log(chunk.partialHash)
+  })
 }
-
-const timer: IAwaitTimer = new AwaitTimer(callback, options)
-
-// 启动轮询
-timer.start()
-
-// 停止轮询
-timer.stop()
-
-// 销毁实例
-timer.destroy()
 ```

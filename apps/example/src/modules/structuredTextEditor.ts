@@ -130,7 +130,18 @@ export class StructuredTextEditor extends StructuredTextCompiler {
     updater[Symbol.dispose]()
   }
 
-  
+  // 设置选中文本斜体
+  public setItalic() {
+    if (!this._selectedText || !this._range || !this._parsedCollection) return
+
+    const updater = new StructureCollectionUpdater(this._parsedCollection?.collection)
+    updater.updateStyleWithRange(this._range, { key: '', value: 'italic' }, true)
+    this._parsedCollection.collection = updater.updatedCollection
+    this._updateDomWithCollection()
+    this.currentText = this._parsedCollection.deparseCollectionToString()
+    // @todo 手动释放资源, 要自动释放需要 polyfill
+    updater[Symbol.dispose]()
+  }
 
   // 销毁
   public override destroy() {

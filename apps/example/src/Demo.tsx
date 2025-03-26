@@ -3,6 +3,7 @@ import { StructuredTextEditor } from './modules/structuredTextEditor'
 
 export interface IItemHandler {
   setSelectedTextColor: (color: string) => void
+  setItalic: () => void
 }
 
 export function generateTestString(d: number) {
@@ -43,6 +44,10 @@ export default function Demo() {
     items.current[editingIndex]?.setSelectedTextColor('#FF0000')
   }
 
+  const onSetItalic = () => {
+    items.current[editingIndex]?.setItalic()
+  }
+
   useEffect(() => {
     getData()
   }, [])
@@ -54,7 +59,9 @@ export default function Demo() {
           设置红色字体
         </button>
         <div className='divider divider-horizontal'></div>
-        <button className='btn btn-primary'>设置斜体</button>
+        <button className='btn btn-primary' onClick={onSetItalic}>
+          设置斜体
+        </button>
       </div>
       {list.map((text, index) => (
         <div key={`display_${index}`} onClick={() => setIndex(index)}>
@@ -120,6 +127,9 @@ const Item = forwardRef(function (
     () => ({
       setSelectedTextColor(color: string) {
         instance.current?.setTextColor(color)
+      },
+      setItalic() {
+        instance.current?.setItalic()
       },
     }),
     [],

@@ -16,11 +16,16 @@ export enum Attributes {
 }
 
 export enum Styles {
-  FontSize = 'fsize',
   Italic = 'italic',
   Bold = 'bold',
   UnderLine = 'uline',
   DeleteLine = 'sline',
+  FontSize = 'fsize',
+  Color = 'color',
+  // 文本背景色
+  Background = 'hlight',
+  // 文本是否从右到左
+  Rtl = 'rtl',
 }
 
 // 斜体或加粗的值
@@ -35,10 +40,11 @@ export enum DecorationLineValues {
   Double = 'double',
 }
 
-export enum NonDisplayStyles {
-  Color = 'color',
-  // 文本背景色
-  Background = 'hlight',
-  // 文本是否从右到左
-  Rtl = 'rtl',
+export type StructuredTextEditorOptions = {
+  onChange?: (value: string) => void
+  emitEditableStatusChange?: (editable: boolean) => void
+  emitSelectedTextChange?: (selectedText: string | undefined) => void
 }
+
+// 标签 id, 格式为 d-p-i[-s], s 表示前端拆分后的标记, 从 0 开始按顺序递增
+export type TagId = `${number}-${number}-${number}${string}`

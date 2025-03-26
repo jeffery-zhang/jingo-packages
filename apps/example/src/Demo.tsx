@@ -1,37 +1,130 @@
-import { useEffect, useRef, useState } from 'react'
-import { ParsedStructureCollection } from './modules/structuredTextParser'
+import { ForwardedRef, forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
+import { StructuredTextEditor } from './modules/structuredTextEditor'
 
-export const testString =
-  "<T d='1' p='0' fname='SimSun' fsize='48' color='#FF0000' bold='1' i='1'>ELECTION RESULTS EDITION</T><T d='1' p='1' italic='1' sline='single' fname='SimSun' fsize='24' color='#000000' bold='1' i='1'>The People Speak</T><T d='1' p='2' fname='SimSun' i='1'>Worts Just Say No!</T><IG d='1' p='3' fname='SimSun' fsize='24' uline='single' spacing='-2' i='1'> 1996</IG><A d='1' fname='SimSun' uline='double' fsize='24' spacing='-2'>https://google.com</A>"
+export interface IItemHandler {
+  setSelectedTextColor: (color: string) => void
+}
+
+export function generateTestString(d: number) {
+  return `<T d='${d}' p='1' fname='SimSun' fsize='48' color='#00FF00' bold='1' i='1'>ELECTION RESULTS EDITION</T><T d='${d}' p='2' italic='1' sline='single' fname='SimSun' fsize='24' color='#000000' i='1'>The People Speak</T><T d='${d}' p='3' fname='SimSun' i='1'>Worts Just Say No!</T><IG d='${d}' p='4' fname='SimSun' fsize='24' sline='single' spacing='-2' i='1'> 1996</IG><A d='${d}' p='4' i='2' fname='SimSun' uline='double' bold='1' fsize='24' spacing='-2'>https://google.com</A>`
+}
+export async function mockTestData(): Promise<string[]> {
+  return new Promise(resolve => {
+    setTimeout(() => {
+      resolve(Array.from({ length: 10 }).map((_, index) => generateTestString(index + 1)))
+    }, 1000)
+  })
+}
 
 export default function Demo() {
-  const parsed = useRef<boolean>(false)
-  const [text, setText] = useState<string>('')
+  const loading = useRef(false)
+  const [list, setList] = useState<string[]>([])
+  const [editingIndex, setIndex] = useState<number>(-1)
+  const items = useRef<{ [key: number]: IItemHandler | null }>({})
+
+  const getData = async () => {
+    if (loading.current) return
+    loading.current = true
+    const data = await mockTestData()
+
+    setList(data)
+  }
+
+  const onChange = (index: number, text: string) => {
+    setList(prev => {
+      const newList = [...prev]
+      newList[index] = text
+
+      return newList
+    })
+  }
+
+  const onSetColor = () => {
+    items.current[editingIndex]?.setSelectedTextColor('#FF0000')
+  }
 
   useEffect(() => {
-    if (parsed.current) return
-    try {
-      const t = ParsedStructureCollection.fromStructuredText(testString)
-      parsed.current = true
-
-      let content = ''
-      for (let i = 0; i < t.collection.length; i++) {
-        const { textContent } = t.collection[i]
-        content += textContent
-      }
-
-      setText(content)
-    } catch (error) {
-      console.error(error)
-    }
-  })
+    getData()
+  }, [])
 
   return (
     <div className='p-5'>
-      <div className='my-4'>original:</div>
-      <p className='p-5 rounded-lg bg-neutral-300'>{testString}</p>
-      <div className='my-4'>content:</div>
-      <p className='p-5 rounded-lg bg-primary-content underline'>{text}</p>
+      <button className='btn btn-primary' onClick={onSetColor}>
+        设置红色字体
+      </button>
+      {list.map((text, index) => (
+        <div key={`display_${index}`} onClick={() => setIndex(index)}>
+          <Item ref={i => (items.current[index] = i)} index={index} text={text} isEditing={index === editingIndex} onChange={onChange} />
+        </div>
+      ))}
+      <div className='h-8'></div>
+      {list.map((text, index) => (
+        <div key={`text_${index}`} className='flex my-2'>
+          <span className='inline-block w-8'>{index + 1}</span>
+          <p className='flex-1 p-5 rounded-lg bg-neutral-200'>{text}</p>
+        </div>
+      ))}
     </div>
   )
 }
+
+const Item = forwardRef(function (
+  {
+    index,
+    text,
+    isEditing,
+    onChange,
+  }: {
+    index: number
+    text: string
+    isEditing: boolean
+    onChange?: (index: number, text: string) => void
+  },
+  ref: ForwardedRef<IItemHandler>,
+) {
+  const viewer = useRef<HTMLParagraphElement>(null)
+  const instance = useRef<StructuredTextEditor | null>(null)
+
+  useEffect(() => {
+    if (!viewer.current) return
+    try {
+      instance.current = new StructuredTextEditor(viewer.current, text, {
+        onChange(val) {
+          onChange?.(index, val)
+        },
+      })
+    } catch (error) {
+      console.error(error)
+    }
+
+    return () => {
+      instance.current?.destroy()
+    }
+  }, [])
+
+  useEffect(() => {
+    if (!instance.current || !viewer.current) return
+    if (isEditing) {
+      instance.current.editable = true
+    } else {
+      instance.current.editable = false
+    }
+  }, [isEditing])
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      setSelectedTextColor(color: string) {
+        instance.current?.setTextColor(color)
+      },
+    }),
+    [],
+  )
+
+  return (
+    <div className='flex my-2'>
+      <span className='inline-block w-8'>{index + 1}</span>
+      <p ref={viewer} className={`flex-1 p-5 rounded-lg ${isEditing ? 'bg-secondary' : 'bg-accent'}`}></p>
+    </div>
+  )
+})

@@ -49,9 +49,13 @@ export default function Demo() {
 
   return (
     <div className='p-5'>
-      <button className='btn btn-primary' onClick={onSetColor}>
-        设置红色字体
-      </button>
+      <div className='flex'>
+        <button className='btn btn-primary' onClick={onSetColor}>
+          设置红色字体
+        </button>
+        <div className='divider divider-horizontal'></div>
+        <button className='btn btn-primary'>设置斜体</button>
+      </div>
       {list.map((text, index) => (
         <div key={`display_${index}`} onClick={() => setIndex(index)}>
           <Item ref={i => (items.current[index] = i)} index={index} text={text} isEditing={index === editingIndex} onChange={onChange} />

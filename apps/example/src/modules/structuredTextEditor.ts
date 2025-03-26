@@ -130,6 +130,8 @@ export class StructuredTextEditor extends StructuredTextCompiler {
     updater[Symbol.dispose]()
   }
 
+  
+
   // 销毁
   public override destroy() {
     super.destroy()

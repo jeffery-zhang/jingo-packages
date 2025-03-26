@@ -45,8 +45,13 @@ export class StructureCollectionUpdater extends ParsedStructureCollection implem
     }
   }
 
-  // 根据文本选中范围更新对应的样式
-  public updateStyleWithRange(range: Range, style: { key: string; value: string }) {
+  /**
+   * 根据文本选中范围更新对应的样式
+   * @param range 选中范围
+   * @param style 样式键值对
+   * @param checkExistence 检查是否已存在该样式
+   */
+  public updateStyleWithRange(range: Range, style: { key: string; value: string }, checkExistence?: boolean) {
     console.log(range)
 
     /**
@@ -60,8 +65,32 @@ export class StructureCollectionUpdater extends ParsedStructureCollection implem
       if (startId && endId) {
         const startIndex = this.updatedCollection.findIndex(item => item.id === startId)
         const endIndex = this.updatedCollection.findIndex(item => item.id === endId)
-        for (let i = startIndex; i <= endIndex; i++) {
-          this.updatedCollection[i].styles![style.key] = style.value
+        if (checkExistence) {
+          // 需要检查样式是否已存在的情况下
+          // 判断是否所有选中对象的样式值均相同
+          let allItemStylesAreSame = true
+          for (let i = startIndex; i <= endIndex; i++) {
+            const val = this.updatedCollection[i].styles?.[style.key]
+            if (!val || val !== style.value) {
+              allItemStylesAreSame = false
+              break
+            }
+          }
+          if (!allItemStylesAreSame) {
+            // 如果选中的对象中有任意一个不存在这个样式的或者存在样式但值不同的情况, 直接赋值
+            for (let i = startIndex; i <= endIndex; i++) {
+              this.updatedCollection[i].styles![style.key] = style.value
+            }
+          } else {
+            // 否则删除所有选中对象中的样式属性
+            for (let i = startIndex; i <= endIndex; i++) {
+              Reflect.deleteProperty(this.updatedCollection[i].styles!, style.key)
+            }
+          }
+        } else {
+          for (let i = startIndex; i <= endIndex; i++) {
+            this.updatedCollection[i].styles![style.key] = style.value
+          }
         }
       }
     } else if (range.startContainer === range.endContainer) {
@@ -93,7 +122,13 @@ export class StructureCollectionUpdater extends ParsedStructureCollection implem
           if (!completeText) return
           current.textContent = completeText.substring(0, range.startOffset)
           newItem1.textContent = range.toString()
-          newItem1.styles![style.key] = style.value
+          if (checkExistence && newItem1.styles?.[style.key] === style.value) {
+            // 需要检查样式是否已存在的情况下, 样式值相同则删除样式
+            Reflect.deleteProperty(newItem1.styles!, style.key)
+          } else {
+            // 否则修改样式
+            newItem1.styles![style.key] = style.value
+          }
           newItem2.textContent = completeText.substring(range.endOffset)
           // 插入到集合中
           this.updatedCollection.splice(currentIndex + 1, 0, newItem1)
@@ -170,6 +205,7 @@ export class StructureCollectionUpdater extends ParsedStructureCollection implem
       // 更新到集合
       this.updatedCollection = filtered
     }
+    range.collapse()
   }
 
   [Symbol.dispose]() {

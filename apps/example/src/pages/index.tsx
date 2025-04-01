@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router'
 
 type MenuType = {
@@ -22,6 +23,12 @@ const menus: MenuType[] = [
 export default function Layout() {
   const location = useLocation()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (location.pathname === '/') {
+      navigate(menus[0].path)
+    }
+  }, [location])
 
   return (
     <div className='flex h-screen overflow-hidden'>

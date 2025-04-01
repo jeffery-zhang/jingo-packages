@@ -4,7 +4,8 @@
   "description": "A typescript monorepo project based on pnpm workspace",
   "scripts": {
     "dev": "pnpm run -r dev",
-    "build": "pnpm run -r build"
+    "build": "pnpm run -r build",
+    "build:page": "pnpm run -r build:page"
   },
   "keywords": [
     "pnpm",

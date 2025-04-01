@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite"
+    "dev": "vite",
+    "build:page": "vite build"
   },
   "dependencies": {
     "@jingoz/await-timer": "workspace:^",

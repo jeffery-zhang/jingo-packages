@@ -1,9 +1,9 @@
 {
   "name": "@jingoz/await-timer",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "type": "module",
-  "main": "./build/awaitTimer.js",
-  "types": "./build/awaitTimer.d.ts",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
   "scripts": {
     "build:types": "tsc -p ./tsconfig.json",
     "build": "vite build && pnpm build:types"

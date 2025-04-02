@@ -1,0 +1,25 @@
+{
+  "name": "@jingoz/enhanced-abort-controller",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "scripts": {
+    "build:types": "tsc -p ./tsconfig.json",
+    "build": "vite build && pnpm build:types"
+  },
+  "keywords": [
+    "jingo",
+    "abortController",
+    "signal",
+    "abortDelay",
+    "setTimeout"
+  ],
+  "devDependencies": {
+    "typescript": "~5.7.2",
+    "vite": "^6.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

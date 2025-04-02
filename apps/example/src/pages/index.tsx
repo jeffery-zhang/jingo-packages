@@ -18,6 +18,11 @@ const menus: MenuType[] = [
     name: 'File Slicer',
     path: '/file-slicer',
   },
+  {
+    key: '/enhanced-abort-controller',
+    name: 'Enhanced Abort Controller',
+    path: '/enhanced-abort-controller',
+  },
 ]
 
 export default function Layout() {

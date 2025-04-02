@@ -2,6 +2,7 @@ import { FileSlicer, IChunkItem, IFileSlicer } from '@jingoz/file-slicer'
 import { ChangeEvent, useRef, useState } from 'react'
 
 const code = `import { FileSlicer, IChunkItem, IFileSlicer } from '@jingoz/file-slicer'
+import { ChangeEvent, useRef, useState } from 'react'
 
 export default function FileSlicerExample() {
   const [name, setName] = useState('')

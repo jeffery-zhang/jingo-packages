@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@jingoz/await-timer": "workspace:^",
+    "@jingoz/enhanced-abort-controller": "workspace:^",
     "@jingoz/file-slicer": "workspace:^",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

@@ -1,8 +1,8 @@
+import { AwaitTimer, IAwaitTimer } from '@jingoz/await-timer'
 import { useEffect, useRef, useState } from 'react'
 
-import { AwaitTimer, IAwaitTimer } from '@jingoz/await-timer'
-
 const code = `import { AwaitTimer, IAwaitTimer } from '@jingoz/await-timer'
+import { useEffect, useRef, useState } from 'react'
 
 export default function() {
   const [count, setCount] = useState<number>(0)

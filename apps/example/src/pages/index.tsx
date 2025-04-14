@@ -23,6 +23,11 @@ const menus: MenuType[] = [
     name: 'Enhanced Abort Controller',
     path: '/enhanced-abort-controller',
   },
+  {
+    key: '/zlight',
+    name: 'Zlight',
+    path: '/zlight',
+  },
 ]
 
 export default function Layout() {

@@ -1,0 +1,32 @@
+{
+  "name": "@jingoz/zlight",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "scripts": {
+    "build:types": "tsc -p ./tsconfig.json",
+    "build": "vite build && pnpm build:types"
+  },
+  "keywords": [
+    "jingo",
+    "zustand",
+    "state",
+    "react",
+    "store",
+    "subscribe"
+  ],
+  "devDependencies": {
+    "@types/react": "^19.0.10",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "~5.7.2",
+    "vite": "^6.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}

@@ -45,7 +45,7 @@ export const FixedHeightVirtualList = forwardRef(function (
   }
 
   useImperativeHandle(ref, () => ({
-    scrollTo: (index: number) => {},
+    scrollTo: () => {},
   }))
 
   return (

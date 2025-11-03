@@ -5,6 +5,7 @@ type MenuType = {
   key: string
   name: string
   path: string
+  children?: MenuType[]
 }
 
 const menus: MenuType[] = [
@@ -28,6 +29,18 @@ const menus: MenuType[] = [
     name: 'Zlight',
     path: '/zlight',
   },
+  {
+    key: '/hooks',
+    name: 'Hooks',
+    path: '/hooks',
+    children: [
+      {
+        key: '/hooks/useDeferedComponent',
+        name: 'useDeferedComponent',
+        path: '/hooks/useDeferedComponent',
+      },
+    ],
+  },
 ]
 
 export default function Layout() {
@@ -49,9 +62,24 @@ export default function Layout() {
             <ul>
               {menus.map(menu => (
                 <li key={menu.key}>
-                  <a className={`${menu.key === location.pathname ? 'menu-active' : ''}`} onClick={() => navigate(menu.path)}>
-                    {menu.name}
-                  </a>
+                  {menu.children && menu.children.length > 0 ? (
+                    <details open>
+                      <summary>{menu.name}</summary>
+                      <ul>
+                        {menu.children.map(child => (
+                          <li key={child.key}>
+                            <a className={`${child.key === location.pathname ? 'menu-active' : ''}`} onClick={() => navigate(child.path)}>
+                              {child.name}
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </details>
+                  ) : (
+                    <a className={`${menu.key === location.pathname ? 'menu-active' : ''}`} onClick={() => navigate(menu.path)}>
+                      {menu.name}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

@@ -6,6 +6,7 @@ import EnhancedAbortControllerExample from './pages/EnhancedAbortController'
 import FileSlicerExample from './pages/FileSlicer'
 import ZlightExample from './pages/Zlight'
 import UseDeferedComponentExample from './pages/Hooks/UseDeferedComponentExample'
+import UseInterval from './pages/Hooks/UseInterval'
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path='hooks'>
             <Route index element={<Navigate to='useDeferedComponent' />} />
             <Route path='useDeferedComponent' element={<UseDeferedComponentExample />} />
+            <Route path='useInterval' element={<UseInterval />} />
           </Route>
         </Route>
         <Route path='/demo' element={<Demo />} />

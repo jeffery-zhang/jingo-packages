@@ -1,5 +1,10 @@
 import { useEffect, useState } from 'react'
 
+/**
+ * import component lazily
+ * @param importFn import function
+ * @returns component
+ */
 export function useDeferredComponent<T extends React.ComponentType<any>>(importFn: () => Promise<{ default: T }>) {
   const [Component, setComponent] = useState<T | null>(null)
 

@@ -39,6 +39,11 @@ const menus: MenuType[] = [
         name: 'useDeferedComponent',
         path: '/hooks/useDeferedComponent',
       },
+      {
+        key: '/hooks/useInterval',
+        name: 'useInterval',
+        path: '/hooks/useInterval',
+      },
     ],
   },
 ]

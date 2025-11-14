@@ -1,11 +1,11 @@
-import { useState as h, useEffect as a, useRef as u, useCallback as m } from "react";
-function y(n) {
-  const [e, r] = h(null);
-  return a(() => {
+import { useState as f, useEffect as l, useRef as a, useCallback as d, useSyncExternalStore as h } from "react";
+function C(e) {
+  const [n, r] = f(null);
+  return l(() => {
     "requestIdleCallback" in window ? requestIdleCallback(
       async () => {
         try {
-          const t = await n();
+          const t = await e();
           r(() => t.default);
         } catch (t) {
           throw console.log("useDeferedComponent: ", t), new Error("useDeferedComponent: " + t);
@@ -14,21 +14,21 @@ function y(n) {
       { timeout: 100 }
     ) : setTimeout(async () => {
       try {
-        const t = await n();
+        const t = await e();
         r(() => t.default);
       } catch (t) {
         throw console.log("useDeferedComponent: ", t), new Error("useDeferedComponent: " + t);
       }
     }, 1);
-  }, []), e;
+  }, []), n;
 }
-var p = Object.defineProperty, d = (n, e, r) => e in n ? p(n, e, { enumerable: !0, configurable: !0, writable: !0, value: r }) : n[e] = r, f = (n, e, r) => d(n, typeof e != "symbol" ? e + "" : e, r);
-class _ {
-  constructor(e, r, t) {
-    f(this, "_timer", null), f(this, "_isStopped", !0), f(this, "_options", {
+var p = Object.defineProperty, _ = (e, n, r) => n in e ? p(e, n, { enumerable: !0, configurable: !0, writable: !0, value: r }) : e[n] = r, m = (e, n, r) => _(e, typeof n != "symbol" ? n + "" : n, r);
+class g {
+  constructor(n, r, t) {
+    m(this, "_timer", null), m(this, "_isStopped", !0), m(this, "_options", {
       immediate: !1,
       autoStart: !0
-    }), this._callback = e, this._delay = r, t && (this._options = { ...this._options, ...t }), this._options.autoStart && this.start();
+    }), this._callback = n, this._delay = r, t && (this._options = { ...this._options, ...t }), this._options.autoStart && this.start();
   }
   get isStopped() {
     return this._isStopped;
@@ -36,8 +36,8 @@ class _ {
   async _invokeCallback() {
     try {
       await this._callback();
-    } catch (e) {
-      throw console.error("An Error Occured while polling"), e;
+    } catch (n) {
+      throw console.error("An Error Occured while polling"), n;
     }
   }
   _runLoop() {
@@ -55,61 +55,97 @@ class _ {
     this.stop(), this._timer = null;
   }
 }
-function b(n, e, r = !0) {
-  const t = u(null);
-  return a(() => (t.current || (t.current = new _(n, e, {
+function E(e, n, r = !0) {
+  const t = a(null);
+  return l(() => (t.current || (t.current = new g(e, n, {
     immediate: r
   })), () => {
     t.current && (t.current.destroy(), t.current = null);
-  }), [n, e, r]), [
+  }), [e, n, r]), [
     () => {
-      var o;
-      (o = t.current) == null || o.start();
+      var i;
+      (i = t.current) == null || i.start();
     },
     () => {
-      var o;
-      (o = t.current) == null || o.stop();
+      var i;
+      (i = t.current) == null || i.stop();
     }
   ];
 }
-function C(n, e = 1e3) {
-  const [r, t] = h(!1), o = u(null), s = u(null), c = m((...l) => {
-    o.current && clearTimeout(o.current), s.current = l, t(!0), o.current = setTimeout(async () => {
+function T(e, n = 1e3) {
+  const [r, t] = f(!1), i = a(null), o = a(null), u = d((...s) => {
+    i.current && clearTimeout(i.current), o.current = s, t(!0), i.current = setTimeout(async () => {
       try {
-        await n(...s.current);
-      } catch (i) {
-        throw console.log(i), i;
+        await e(...o.current);
+      } catch (c) {
+        throw console.log(c), c;
       } finally {
         t(!1);
       }
-    }, e);
+    }, n);
   }, []);
-  return a(() => () => {
-    o.current && (clearTimeout(o.current), o.current = null);
-  }, []), [c, r];
+  return l(() => () => {
+    i.current && (clearTimeout(i.current), i.current = null);
+  }, []), [u, r];
 }
-function g(n, e = 1e3) {
-  const r = u(!1), [t, o] = h(!1), s = u(null), c = m(async (...l) => {
+function I(e, n = 1e3) {
+  const r = a(!1), [t, i] = f(!1), o = a(null), u = d(async (...s) => {
     if (!r.current) {
-      r.current = !0, o(!0);
+      r.current = !0, i(!0);
       try {
-        await n(...l);
-      } catch (i) {
-        throw console.log(i), i;
+        await e(...s);
+      } catch (c) {
+        throw console.log(c), c;
       } finally {
-        s.current = setTimeout(() => {
-          r.current = !1, o(!1);
-        }, e);
+        o.current = setTimeout(() => {
+          r.current = !1, i(!1);
+        }, n);
       }
     }
   }, []);
-  return a(() => () => {
-    s.current && clearTimeout(s.current);
-  }, []), [c, t];
+  return l(() => () => {
+    o.current && clearTimeout(o.current);
+  }, []), [u, t];
+}
+function v() {
+  return navigator.onLine;
+}
+function y(e) {
+  return document.addEventListener("online", e), document.addEventListener("offline", e), () => {
+    document.removeEventListener("online", e), document.removeEventListener("offline", e);
+  };
+}
+function L() {
+  return h(y, v);
+}
+function b(e) {
+  return document.addEventListener("visibilitychange", e), () => {
+    document.removeEventListener("visibilitychange", e);
+  };
+}
+function w() {
+  return document.visibilityState !== "hidden";
+}
+function O() {
+  return h(b, w);
+}
+function k(e, n = null, r = "local") {
+  const t = r === "session" ? sessionStorage : localStorage, [i, o] = f(() => {
+    const s = t.getItem(e);
+    return s != null ? JSON.parse(s) : n;
+  }), u = () => {
+    t.removeItem(e), o(null);
+  };
+  return l(() => {
+    t.setItem(e, JSON.stringify(i));
+  }, [i]), [i, o, u];
 }
 export {
-  C as useDebounce,
-  y as useDeferredComponent,
-  b as useInterval,
-  g as useThrottle
+  T as useDebounce,
+  C as useDeferredComponent,
+  E as useInterval,
+  L as useIsOnline,
+  k as useStorage,
+  I as useThrottle,
+  O as useisWindowVisible
 };

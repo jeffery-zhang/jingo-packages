@@ -4,4 +4,4 @@
  * @param debounceTimeMs ms
  * @returns [debouncedCallback, isDebouncing]
  */
-export declare function useDebounce<T extends (...args: unknown[]) => unknown>(callback: T, debounceTimeMs?: number): [(...args: Parameters<T>) => void, boolean];
+export declare function useDebounce<T extends (...args: any[]) => any>(callback: T, debounceTimeMs?: number): [(...args: Parameters<T>) => void, boolean];

@@ -4,4 +4,4 @@
  * @param throttleTimeMs ms
  * @returns [throttledCallback, isThrottling]
  */
-export declare function useThrottle<T extends (...args: unknown[]) => unknown>(callback: T, throttleTimeMs?: number): [(...args: Parameters<T>) => void, boolean];
+export declare function useThrottle<T extends (...args: any[]) => any>(callback: T, throttleTimeMs?: number): [(...args: Parameters<T>) => void, boolean];

@@ -6,10 +6,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
  * @param throttleTimeMs ms
  * @returns [throttledCallback, isThrottling]
  */
-export function useThrottle<T extends (...args: unknown[]) => unknown>(
-  callback: T,
-  throttleTimeMs: number = 1000,
-): [(...args: Parameters<T>) => void, boolean] {
+export function useThrottle<T extends (...args: any[]) => any>(callback: T, throttleTimeMs: number = 1000): [(...args: Parameters<T>) => void, boolean] {
   const isWaitingRef = useRef(false)
   const [isWaiting, setIsWaiting] = useState(false)
   const timerRef = useRef<ReturnType<typeof setTimeout>>(null)

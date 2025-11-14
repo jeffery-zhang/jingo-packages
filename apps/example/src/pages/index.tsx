@@ -44,6 +44,11 @@ const menus: MenuType[] = [
         name: 'useInterval',
         path: '/hooks/useInterval',
       },
+      {
+        key: '/hooks/useDebounceAndUseThrottleExample',
+        name: 'useDebounceAndUseThrottleExample',
+        path: '/hooks/useDebounceAndUseThrottleExample',
+      },
     ],
   },
   {

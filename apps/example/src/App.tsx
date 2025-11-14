@@ -6,6 +6,7 @@ import EnhancedAbortControllerExample from './pages/EnhancedAbortController'
 import FileSlicerExample from './pages/FileSlicer'
 import ZlightExample from './pages/Zlight'
 import UseDeferedComponentExample from './pages/Hooks/UseDeferedComponentExample'
+import UseDebounceAndUseThrottleExample from './pages/Hooks/UseDebounceAndUseThrottleExample'
 import UseInterval from './pages/Hooks/UseInterval'
 import VirtualList from './pages/Components/VirtualList'
 
@@ -22,6 +23,7 @@ function App() {
             <Route index element={<Navigate to='useDeferedComponent' />} />
             <Route path='useDeferedComponent' element={<UseDeferedComponentExample />} />
             <Route path='useInterval' element={<UseInterval />} />
+            <Route path='useDebounceAndUseThrottleExample' element={<UseDebounceAndUseThrottleExample />} />
           </Route>
           <Route path='components'>
             <Route index element={<Navigate to='virtualList' />} />

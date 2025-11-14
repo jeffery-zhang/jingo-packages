@@ -6,10 +6,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
  * @param debounceTimeMs ms
  * @returns [debouncedCallback, isDebouncing]
  */
-export function useDebounce<T extends (...args: unknown[]) => unknown>(
-  callback: T,
-  debounceTimeMs: number = 1000,
-): [(...args: Parameters<T>) => void, boolean] {
+export function useDebounce<T extends (...args: any[]) => any>(callback: T, debounceTimeMs: number = 1000): [(...args: Parameters<T>) => void, boolean] {
   const [isPending, setIsPending] = useState(false)
   const timerRef = useRef<ReturnType<typeof setTimeout>>(null)
   const argsRef = useRef<Parameters<T>>(null)

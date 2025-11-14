@@ -92,3 +92,26 @@ start()：启动/重启定时器
 stop()：停止定时器
 
 支持异步回调，自动处理 delay 动态变更。
+
+### useDebounce, useThrottle
+
+防抖节流的 react hook
+
+#### 用法
+
+```ts
+import { useDebounce, useThrottle } from '@jingoz/hooks'
+
+async function callback() {
+  return {}
+}
+
+const [debouncedCallback, isPending] = useDebounce(callback, 2000)
+const [throttledCallback, isWaiting] = useThrottle(callback, 2000)
+```
+
+#### 返回值
+
+```ts
+[debouncedCallback, isPending]: [(...args: unknown) => void, boolean]
+```

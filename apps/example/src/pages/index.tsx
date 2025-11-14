@@ -49,6 +49,16 @@ const menus: MenuType[] = [
         name: 'useDebounceAndUseThrottleExample',
         path: '/hooks/useDebounceAndUseThrottleExample',
       },
+      {
+        key: '/hooks/useIsOnline',
+        name: 'useIsOnline',
+        path: '/hooks/useIsOnline',
+      },
+      {
+        key: '/hooks/useIsWindowVisible',
+        name: 'useIsWindowVisible',
+        path: '/hooks/useIsWindowVisible',
+      },
     ],
   },
   {

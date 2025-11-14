@@ -1,6 +1,25 @@
-import { ForwardedRef, forwardRef, ReactElement, useImperativeHandle, useRef, useState } from 'react'
-import { DEFAULT_PADDING, DEFAULT_ROW_HEIGHT, DEFAULT_VIEW_HEIGHT, IVirtualListHandler, IVirtualListSharedProps } from '..'
-import { IRenderItemProps, RenderItem } from '../RenderItem'
+import { ForwardedRef, forwardRef, ReactElement, UIEventHandler, useImperativeHandle, useRef, useState } from 'react'
+import { IRenderItemProps, RenderItem } from './RenderItem'
+import { flushSync } from 'react-dom'
+
+export type TVirtualListChildren = (index: number) => React.ReactNode
+
+export interface IVirtualListSharedProps {
+  className?: string
+  style?: React.CSSProperties
+  total?: number
+  viewHeight?: number
+  padding?: number
+  children?: TVirtualListChildren
+}
+
+export interface IVirtualListRef {
+  scrollTo: (index: number) => void
+}
+
+const DEFAULT_VIEW_HEIGHT = 300
+const DEFAULT_ROW_HEIGHT = 40
+const DEFAULT_PADDING = 2
 
 export interface IFixedHeightVirtualListProps extends IVirtualListSharedProps {
   rowHeight?: number
@@ -18,18 +37,17 @@ export const FixedHeightVirtualList = forwardRef(function (
     rowHeight = DEFAULT_ROW_HEIGHT,
     children,
   }: IFixedHeightVirtualListProps,
-  ref: ForwardedRef<IVirtualListHandler>,
+  ref: ForwardedRef<IVirtualListRef>,
 ) {
   const viewer = useRef<HTMLDivElement>(null)
   const [scrollTop, setScrollTop] = useState<number>(0)
-  console.log(total)
 
   // 容器总高度
   const containerHeight = Math.max(total * rowHeight, viewHeight)
   // 渲染起始索引
-  const startIndex = Math.max(Math.floor(scrollTop / containerHeight) - padding, 0)
+  const startIndex = Math.max(Math.floor(scrollTop / rowHeight) - padding, 0)
   // 渲染结束索引
-  const endIndex = Math.min(Math.ceil((scrollTop + viewHeight) / containerHeight) + padding, total)
+  const endIndex = Math.min(Math.floor((scrollTop + viewHeight) / rowHeight) + padding, total)
 
   // 根据索引渲染子组件
   const items: ReactElement<IRenderItemProps>[] = []
@@ -38,14 +56,22 @@ export const FixedHeightVirtualList = forwardRef(function (
   }
 
   // 监听滚动
-  const onScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    requestAnimationFrame(() => {
-      setScrollTop(e.currentTarget.scrollTop)
+  const onScroll: UIEventHandler<HTMLDivElement> = () => {
+    flushSync(() => {
+      requestAnimationFrame(() => {
+        const sTop = viewer.current?.scrollTop || 0
+        setScrollTop(sTop)
+      })
     })
   }
 
   useImperativeHandle(ref, () => ({
-    scrollTo: () => {},
+    scrollTo: index => {
+      if (index < 0 || index > total) return
+      if (viewer.current && (index < startIndex + padding || index > endIndex - padding)) {
+        viewer.current.scrollTo(0, index * rowHeight)
+      }
+    },
   }))
 
   return (

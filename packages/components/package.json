@@ -1,21 +1,17 @@
 {
-  "name": "@jingoz/react-virtual-list",
+  "name": "@jingoz/components",
   "version": "0.0.1",
   "type": "module",
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "scripts": {
-    "dev": "vite",
     "build:types": "tsc -p ./tsconfig.json",
     "build": "vite build && pnpm build:types"
   },
   "keywords": [
     "jingo",
     "react",
-    "virtualList",
-    "fixedHeight",
-    "dynamicHeight",
-    "autoSize"
+    "components"
   ],
   "devDependencies": {
     "@types/react": "^19.0.10",

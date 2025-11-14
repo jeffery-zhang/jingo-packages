@@ -14,7 +14,4 @@ export default {
       fileName: 'index',
     },
   },
-  server: {
-    port: 5555,
-  },
 } satisfies UserConfig

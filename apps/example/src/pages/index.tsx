@@ -46,6 +46,18 @@ const menus: MenuType[] = [
       },
     ],
   },
+  {
+    key: '/components',
+    name: 'Components',
+    path: '/components',
+    children: [
+      {
+        key: '/components/virtualList',
+        name: 'Virtual List',
+        path: '/components/virtualList',
+      },
+    ],
+  },
 ]
 
 export default function Layout() {

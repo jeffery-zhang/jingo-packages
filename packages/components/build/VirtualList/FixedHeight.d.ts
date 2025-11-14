@@ -7,9 +7,10 @@ export interface IVirtualListSharedProps {
     padding?: number;
     children?: TVirtualListChildren;
 }
-export interface IVirtualListHandler {
+export interface IVirtualListRef {
     scrollTo: (index: number) => void;
 }
-export declare const DEFAULT_VIEW_HEIGHT = 300;
-export declare const DEFAULT_ROW_HEIGHT = 40;
-export declare const DEFAULT_PADDING = 2;
+export interface IFixedHeightVirtualListProps extends IVirtualListSharedProps {
+    rowHeight?: number;
+}
+export declare const FixedHeightVirtualList: import("react").ForwardRefExoticComponent<IFixedHeightVirtualListProps & import("react").RefAttributes<IVirtualListRef>>;

@@ -7,6 +7,7 @@ import FileSlicerExample from './pages/FileSlicer'
 import ZlightExample from './pages/Zlight'
 import UseDeferedComponentExample from './pages/Hooks/UseDeferedComponentExample'
 import UseInterval from './pages/Hooks/UseInterval'
+import VirtualList from './pages/Components/VirtualList'
 
 function App() {
   return (
@@ -21,6 +22,10 @@ function App() {
             <Route index element={<Navigate to='useDeferedComponent' />} />
             <Route path='useDeferedComponent' element={<UseDeferedComponentExample />} />
             <Route path='useInterval' element={<UseInterval />} />
+          </Route>
+          <Route path='components'>
+            <Route index element={<Navigate to='virtualList' />} />
+            <Route path='virtualList' element={<VirtualList />} />
           </Route>
         </Route>
         <Route path='/demo' element={<Demo />} />

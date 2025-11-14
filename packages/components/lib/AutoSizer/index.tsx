@@ -1,6 +1,6 @@
 import { useCallback, useLayoutEffect, useRef, useState } from 'react'
 
-export type TRect = {
+type TRect = {
   width: number
   height: number
 }

@@ -7,5 +7,5 @@
     "noEmit": false,
     "jsx": "react-jsx"
   },
-  "include": ["lib", "main.tsx"]
+  "include": ["lib"]
 }

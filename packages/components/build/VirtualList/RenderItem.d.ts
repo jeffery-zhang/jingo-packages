@@ -1,4 +1,4 @@
-import { TVirtualListChildren } from '.';
+import { TVirtualListChildren } from './FixedHeight';
 export interface IRenderItemProps {
     index: number;
     offset: number;

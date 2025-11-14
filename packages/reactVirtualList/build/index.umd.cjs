@@ -1,1 +1,0 @@
-(function(e,n){typeof exports=="object"&&typeof module<"u"?n(exports):typeof define=="function"&&define.amd?define(["exports"],n):(e=typeof globalThis<"u"?globalThis:e||self,n(e.zlight={}))})(this,(function(e){"use strict";e.DEFAULT_PADDING=2,e.DEFAULT_ROW_HEIGHT=40,e.DEFAULT_VIEW_HEIGHT=300,Object.defineProperty(e,Symbol.toStringTag,{value:"Module"})}));

@@ -7,10 +7,11 @@ import FileSlicerExample from './pages/FileSlicer'
 import ZlightExample from './pages/Zlight'
 import UseDeferedComponentExample from './pages/Hooks/UseDeferedComponentExample'
 import UseDebounceAndUseThrottleExample from './pages/Hooks/UseDebounceAndUseThrottleExample'
-import UseIsOnline from './pages/Hooks/UseIsOnline'
-import UseIsWindowVisible from './pages/Hooks/UseIsWindowVisible'
-import UseInterval from './pages/Hooks/UseInterval'
-import VirtualList from './pages/Components/VirtualList'
+import UseIsOnlineExample from './pages/Hooks/UseIsOnline'
+import UseIsWindowVisibleExample from './pages/Hooks/UseIsWindowVisible'
+import UseIntervalExample from './pages/Hooks/UseInterval'
+import UseStorageExample from './pages/Hooks/UseStorage'
+import VirtualListExample from './pages/Components/VirtualList'
 
 function App() {
   return (
@@ -24,14 +25,15 @@ function App() {
           <Route path='hooks'>
             <Route index element={<Navigate to='useDeferedComponent' />} />
             <Route path='useDeferedComponent' element={<UseDeferedComponentExample />} />
-            <Route path='useInterval' element={<UseInterval />} />
-            <Route path='useDebounceAndUseThrottleExample' element={<UseDebounceAndUseThrottleExample />} />
-            <Route path='useIsOnline' element={<UseIsOnline />} />
-            <Route path='useisWindowVisible' element={<UseIsWindowVisible />} />
+            <Route path='useInterval' element={<UseIntervalExample />} />
+            <Route path='useDebounceAndUseThrottle' element={<UseDebounceAndUseThrottleExample />} />
+            <Route path='useIsOnline' element={<UseIsOnlineExample />} />
+            <Route path='useisWindowVisible' element={<UseIsWindowVisibleExample />} />
+            <Route path='useStorage' element={<UseStorageExample />} />
           </Route>
           <Route path='components'>
             <Route index element={<Navigate to='virtualList' />} />
-            <Route path='virtualList' element={<VirtualList />} />
+            <Route path='virtualList' element={<VirtualListExample />} />
           </Route>
         </Route>
         <Route path='/demo' element={<Demo />} />

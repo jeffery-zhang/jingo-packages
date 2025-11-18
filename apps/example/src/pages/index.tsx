@@ -45,9 +45,9 @@ const menus: MenuType[] = [
         path: '/hooks/useInterval',
       },
       {
-        key: '/hooks/useDebounceAndUseThrottleExample',
-        name: 'useDebounceAndUseThrottleExample',
-        path: '/hooks/useDebounceAndUseThrottleExample',
+        key: '/hooks/useDebounceAndUseThrottle',
+        name: 'useDebounceAndUseThrottle',
+        path: '/hooks/useDebounceAndUseThrottle',
       },
       {
         key: '/hooks/useIsOnline',
@@ -58,6 +58,11 @@ const menus: MenuType[] = [
         key: '/hooks/useIsWindowVisible',
         name: 'useIsWindowVisible',
         path: '/hooks/useIsWindowVisible',
+      },
+      {
+        key: '/hooks/useStorage',
+        name: 'useStorage',
+        path: '/hooks/useStorage',
       },
     ],
   },

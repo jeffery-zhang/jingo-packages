@@ -9,26 +9,26 @@ type MenuType = {
 }
 
 const menus: MenuType[] = [
-  {
-    key: '/await-timer',
-    name: 'Await Timer',
-    path: '/await-timer',
-  },
-  {
-    key: '/file-slicer',
-    name: 'File Slicer',
-    path: '/file-slicer',
-  },
-  {
-    key: '/enhanced-abort-controller',
-    name: 'Enhanced Abort Controller',
-    path: '/enhanced-abort-controller',
-  },
-  {
-    key: '/zlight',
-    name: 'Zlight',
-    path: '/zlight',
-  },
+  // {
+  //   key: '/await-timer',
+  //   name: 'Await Timer',
+  //   path: '/await-timer',
+  // },
+  // {
+  //   key: '/file-slicer',
+  //   name: 'File Slicer',
+  //   path: '/file-slicer',
+  // },
+  // {
+  //   key: '/enhanced-abort-controller',
+  //   name: 'Enhanced Abort Controller',
+  //   path: '/enhanced-abort-controller',
+  // },
+  // {
+  //   key: '/zlight',
+  //   name: 'Zlight',
+  //   path: '/zlight',
+  // },
   {
     key: '/hooks',
     name: 'Hooks',
@@ -45,9 +45,14 @@ const menus: MenuType[] = [
         path: '/hooks/useInterval',
       },
       {
-        key: '/hooks/useDebounceAndUseThrottle',
-        name: 'useDebounceAndUseThrottle',
-        path: '/hooks/useDebounceAndUseThrottle',
+        key: '/hooks/useDebounce',
+        name: 'useDebounce',
+        path: '/hooks/useDebounce',
+      },
+      {
+        key: '/hooks/useThrottle',
+        name: 'useThrottle',
+        path: '/hooks/useThrottle',
       },
       {
         key: '/hooks/useIsOnline',
@@ -64,6 +69,11 @@ const menus: MenuType[] = [
         name: 'useStorage',
         path: '/hooks/useStorage',
       },
+      {
+        key: '/hooks/useIntersectionObserver',
+        name: 'useIntersectionObserver',
+        path: '/hooks/useIntersectionObserver',
+      },
     ],
   },
   {
@@ -72,9 +82,9 @@ const menus: MenuType[] = [
     path: '/components',
     children: [
       {
-        key: '/components/virtualList',
-        name: 'Virtual List',
-        path: '/components/virtualList',
+        key: '/components/fixedHeightVirtualList',
+        name: 'Fixed Height Virtual List',
+        path: '/components/fixedHeightVirtualList',
       },
     ],
   },
@@ -91,8 +101,8 @@ export default function Layout() {
   }, [location])
 
   return (
-    <div className='flex h-screen overflow-hidden'>
-      <div className='w-64 h-full px-2 py-4 border-r border-base-300 overflow-y-auto'>
+    <div className='flex h-full container mx-auto overflow-hidden'>
+      <div className='h-full px-2 py-4 border-r border-base-300 overflow-y-auto'>
         <ul className='menu rounded-box w-full'>
           <li>
             <h2 className='menu-title'>Packages</h2>

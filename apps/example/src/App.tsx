@@ -5,13 +5,15 @@ import Demo from './pages/Demo'
 import EnhancedAbortControllerExample from './pages/EnhancedAbortController'
 import FileSlicerExample from './pages/FileSlicer'
 import ZlightExample from './pages/Zlight'
-import UseDeferedComponentExample from './pages/Hooks/UseDeferedComponentExample'
-import UseDebounceAndUseThrottleExample from './pages/Hooks/UseDebounceAndUseThrottleExample'
+import UseDeferedComponentExample from './pages/Hooks/UseDeferedComponent'
+import UseDebounceExample from './pages/Hooks/UseDebounce'
+import UseThrottleExample from './pages/Hooks/UseThrottle'
 import UseIsOnlineExample from './pages/Hooks/UseIsOnline'
 import UseIsWindowVisibleExample from './pages/Hooks/UseIsWindowVisible'
 import UseIntervalExample from './pages/Hooks/UseInterval'
 import UseStorageExample from './pages/Hooks/UseStorage'
-import VirtualListExample from './pages/Components/VirtualList'
+import UseIntersectionObserver from './pages/Hooks/UseIntersectionObserver'
+import FixedHeightVirtualListExample from './pages/Components/FixedHeightVirtualList'
 
 function App() {
   return (
@@ -26,14 +28,16 @@ function App() {
             <Route index element={<Navigate to='useDeferedComponent' />} />
             <Route path='useDeferedComponent' element={<UseDeferedComponentExample />} />
             <Route path='useInterval' element={<UseIntervalExample />} />
-            <Route path='useDebounceAndUseThrottle' element={<UseDebounceAndUseThrottleExample />} />
+            <Route path='useDebounce' element={<UseDebounceExample />} />
+            <Route path='useThrottle' element={<UseThrottleExample />} />
             <Route path='useIsOnline' element={<UseIsOnlineExample />} />
             <Route path='useisWindowVisible' element={<UseIsWindowVisibleExample />} />
             <Route path='useStorage' element={<UseStorageExample />} />
+            <Route path='useIntersectionObserver' element={<UseIntersectionObserver />} />
           </Route>
           <Route path='components'>
-            <Route index element={<Navigate to='virtualList' />} />
-            <Route path='virtualList' element={<VirtualListExample />} />
+            <Route index element={<Navigate to='fixedHeightVirtualList' />} />
+            <Route path='fixedHeightVirtualList' element={<FixedHeightVirtualListExample />} />
           </Route>
         </Route>
         <Route path='/demo' element={<Demo />} />

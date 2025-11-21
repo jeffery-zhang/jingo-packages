@@ -9,7 +9,7 @@ const codes = [
   {
     name: 'index.tsx',
     code: `
-      import { AutoSizer, FixedHeightVirtualList, IVirtualListRef } from '@jingoz/components'
+      import { AutoSizer, DynamicHeightVirtualList, IVirtualListRef } from '@jingoz/components'
       import { data } from './data'
       import { useRef, useState } from 'react'
       
@@ -20,12 +20,12 @@ const codes = [
         return (
           <div className='flex p-5'>
             <div className='w-full'>
-              <h1>Fixed Height</h1>
+              <h1>Dynamic Height</h1>
               <button
                 className='btn'
                 onClick={() => {
                   const inputNumber = Number(input)
-                  if (isNaN(inputNumber)) return
+                  if (Number.isNaN(inputNumber)) return
                   list.current?.scrollTo(inputNumber)
                 }}
               >
@@ -35,9 +35,9 @@ const codes = [
               <div className='w-full h-[400px]'>
                 <AutoSizer>
                   {({ height }) => (
-                    <FixedHeightVirtualList ref={list} className='mt-5' total={data.length} rowHeight={60} viewHeight={height}>
+                    <DynamicHeightVirtualList ref={list} className='mt-5' total={data.length} estimateRowHeight={60} viewHeight={height}>
                       {index => <div className='p-4 border-b border-gray-300'>{data[index].name}</div>}
-                    </FixedHeightVirtualList>
+                    </DynamicHeightVirtualList>
                   )}
                 </AutoSizer>
               </div>
@@ -61,7 +61,7 @@ const codes = [
 export default function FixedHeightVirtualList() {
   return (
     <div className='flex flex-col gap-4 p-5'>
-      <Introduce title='FixedHeightVirtualList' desc='FixedHeightVirtualList is a virtual list component that every row has a fixed height.' />
+      <Introduce title='DynamicHeightVirtualList' desc='DynamicHeightVirtualList is a virtual list component that every row height is based on the content.' />
       <Section title='Install'>
         <Install scripts={['npm i @jingoz/components']} />
       </Section>
@@ -75,10 +75,10 @@ export default function FixedHeightVirtualList() {
               description: 'The total number of items in the list.',
             },
             {
-              name: 'rowHeight',
+              name: 'estimateHeight',
               type: 'number',
               default: '40',
-              description: 'The height of each row in the list.',
+              description: 'The height of each row when the component mounts.',
             },
             {
               name: 'viewHeight',

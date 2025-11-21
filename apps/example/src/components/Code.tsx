@@ -12,7 +12,7 @@ export function Code({ codes }: { codes: CodeType[] }) {
     <div>
       <div role='tablist' className='tabs tabs-lift tabs-sm'>
         {codes.map(({ name, code }) => (
-          <>
+          <div key={`tab_${name}`}>
             <input
               type='radio'
               name={name}
@@ -30,7 +30,7 @@ export function Code({ codes }: { codes: CodeType[] }) {
                 ))}
               </div>
             </div>
-          </>
+          </div>
         ))}
       </div>
     </div>

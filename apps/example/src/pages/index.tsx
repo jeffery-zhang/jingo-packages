@@ -86,6 +86,11 @@ const menus: MenuType[] = [
         name: 'Fixed Height Virtual List',
         path: '/components/fixedHeightVirtualList',
       },
+      {
+        key: '/components/dynamicHeightVirtualList',
+        name: 'Dynamic Height Virtual List',
+        path: '/components/dynamicHeightVirtualList',
+      },
     ],
   },
 ]

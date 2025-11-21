@@ -12,8 +12,9 @@ import UseIsOnlineExample from './pages/Hooks/UseIsOnline'
 import UseIsWindowVisibleExample from './pages/Hooks/UseIsWindowVisible'
 import UseIntervalExample from './pages/Hooks/UseInterval'
 import UseStorageExample from './pages/Hooks/UseStorage'
-import UseIntersectionObserver from './pages/Hooks/UseIntersectionObserver'
+import UseIntersectionObserverExample from './pages/Hooks/UseIntersectionObserver'
 import FixedHeightVirtualListExample from './pages/Components/FixedHeightVirtualList'
+import DynamicHeightVirtualListExample from './pages/Components/DynamicHeightVirtualList'
 
 function App() {
   return (
@@ -33,11 +34,12 @@ function App() {
             <Route path='useIsOnline' element={<UseIsOnlineExample />} />
             <Route path='useisWindowVisible' element={<UseIsWindowVisibleExample />} />
             <Route path='useStorage' element={<UseStorageExample />} />
-            <Route path='useIntersectionObserver' element={<UseIntersectionObserver />} />
+            <Route path='useIntersectionObserver' element={<UseIntersectionObserverExample />} />
           </Route>
           <Route path='components'>
             <Route index element={<Navigate to='fixedHeightVirtualList' />} />
             <Route path='fixedHeightVirtualList' element={<FixedHeightVirtualListExample />} />
+            <Route path='dynamicHeightVirtualList' element={<DynamicHeightVirtualListExample />} />
           </Route>
         </Route>
         <Route path='/demo' element={<Demo />} />

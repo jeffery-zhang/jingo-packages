@@ -9,24 +9,62 @@ const codes = [
   {
     name: 'index.tsx',
     code: `
-      import { useDebounce } from '@jingoz/hooks'
-      import { useState } from 'react'
-
+      import { useIntersectionObserver } from '@jingoz/hooks/lib/hooks/useIntersectionObserver'
+      import { data } from './data'
+      import { useRef } from 'react'
+      
       export function Demo() {
-        const [count, setCount] = useState<number>(0)
-        const [debouncedCallback] = useDebounce(() => {
-          setCount(prev => prev + 1)
-        }, 2000)
-
+        const ref = useRef(null)
+      
         return (
-          <div className='p-5'>
-            <button className='ml-0 btn btn-primary' onClick={debouncedCallback}>
-              Add
-            </button>
-            <p className='mt-2'>Count: {count}</p>
+          <div ref={ref} className='p-5 h-64 overflow-y-auto'>
+            {data.map(item => (
+              <Section key={item.name} root={ref.current} name={item.name} src={item.src} />
+            ))}
           </div>
         )
       }
+      
+      function Section({ root, name, src }: { root: Element | null; name: string; src: string }) {
+        const [ref, entry] = useIntersectionObserver<HTMLElement>({
+          root,
+          threshold: 0.5,
+        })
+      
+        return (
+          <section>
+            <figure className='p-4 shadow-sm w-64 mx-auto flex flex-col gap-2'>
+              <div ref={ref} className='w-full h-72'>
+                {entry?.isIntersecting ? <img className='w-full h-full object-cover' src={src} alt={name} /> : <div className='skeleton h-full w-full'></div>}
+              </div>
+              <figcaption className='h-6 text-center'>{name}</figcaption>
+            </figure>
+          </section>
+        )
+      }
+    `,
+  },
+  {
+    name: 'data.ts',
+    code: `
+      export const data = [
+        {
+          name: 'image1',
+          src: 'https://fuchsia-absolute-porcupine-16.mypinata.cloud/ipfs/bafkreihakmkdllcmpmjwyu5ox5vileuchdtgmeioyh5duwkkcg7a3uev3i',
+        },
+        {
+          name: 'image2',
+          src: 'https://fuchsia-absolute-porcupine-16.mypinata.cloud/ipfs/bafybeiexmgsbkkas72vx2dpasunkgw3fn55qgdl6gzwajthirc6vlnldji',
+        },
+        {
+          name: 'image3',
+          src: 'https://fuchsia-absolute-porcupine-16.mypinata.cloud/ipfs/bafkreig7ek7j7fd6tb7s375yctkl2d3g63ezp2xnrlcr2dhfywkwwq7sxi',
+        },
+        {
+          name: 'image4',
+          src: 'https://fuchsia-absolute-porcupine-16.mypinata.cloud/ipfs/bafkreigppjvj2zdaicj2l5qcutahmrvzoq7azlvunafeghvusw2vdhszx4',
+        },
+      ]
     `,
   },
 ]

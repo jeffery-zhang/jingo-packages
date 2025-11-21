@@ -1,2 +1,2 @@
-export * from './VirtualList/FixedHeight';
+export * from './VirtualList';
 export { AutoSizer } from './AutoSizer';

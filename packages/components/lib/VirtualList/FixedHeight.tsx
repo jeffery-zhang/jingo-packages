@@ -1,31 +1,9 @@
-import { ForwardedRef, forwardRef, ReactElement, UIEventHandler, useImperativeHandle, useRef, useState } from 'react'
-import { IRenderItemProps, RenderItem } from './RenderItem'
-import { flushSync } from 'react-dom'
-
-export type TVirtualListChildren = (index: number) => React.ReactNode
-
-export interface IVirtualListSharedProps {
-  className?: string
-  style?: React.CSSProperties
-  total?: number
-  viewHeight?: number
-  padding?: number
-  children?: TVirtualListChildren
-}
-
-export interface IVirtualListRef {
-  scrollTo: (index: number) => void
-}
-
-const DEFAULT_VIEW_HEIGHT = 300
-const DEFAULT_ROW_HEIGHT = 40
-const DEFAULT_PADDING = 2
+import { ForwardedRef, forwardRef, UIEventHandler, useImperativeHandle, useRef, useState } from 'react'
+import { DEFAULT_PADDING, DEFAULT_ROW_HEIGHT, DEFAULT_VIEW_HEIGHT, VIRTUAL_LIST_ITEM_KEY, IVirtualListRef, IVirtualListSharedProps } from '.'
 
 export interface IFixedHeightVirtualListProps extends IVirtualListSharedProps {
   rowHeight?: number
 }
-
-const FIXED_HEIGHT_LIST_ITEM_KEY = '@jingoz/react-virtual-list-fixed-height-item'
 
 export const FixedHeightVirtualList = forwardRef(function (
   {
@@ -42,26 +20,30 @@ export const FixedHeightVirtualList = forwardRef(function (
   const viewer = useRef<HTMLDivElement>(null)
   const [scrollTop, setScrollTop] = useState<number>(0)
 
-  // 容器总高度
+  // container's height
   const containerHeight = Math.max(total * rowHeight, viewHeight)
-  // 渲染起始索引
+  // start index of rendering
   const startIndex = Math.max(Math.floor(scrollTop / rowHeight) - padding, 0)
-  // 渲染结束索引
+  // end index of rendering
   const endIndex = Math.min(Math.floor((scrollTop + viewHeight) / rowHeight) + padding, total)
+  // render area transform offset
+  const transformOffset = startIndex * rowHeight
 
-  // 根据索引渲染子组件
-  const items: ReactElement<IRenderItemProps>[] = []
+  // render items
+  const items = []
   for (let i = startIndex; i < endIndex; i++) {
-    items.push(<RenderItem key={`${FIXED_HEIGHT_LIST_ITEM_KEY}-${i}`} index={i} offset={i * rowHeight} rowHeight={rowHeight} children={children} />)
+    items.push(
+      <div key={`${VIRTUAL_LIST_ITEM_KEY}-${i}`} data-index={i} className='virtual-list-render-item' style={{ height: rowHeight }}>
+        {children?.(i)}
+      </div>,
+    )
   }
 
-  // 监听滚动
+  // handle scroll
   const onScroll: UIEventHandler<HTMLDivElement> = () => {
-    flushSync(() => {
-      requestAnimationFrame(() => {
-        const sTop = viewer.current?.scrollTop || 0
-        setScrollTop(sTop)
-      })
+    requestAnimationFrame(() => {
+      const sTop = viewer.current?.scrollTop || 0
+      setScrollTop(sTop)
     })
   }
 
@@ -75,8 +57,19 @@ export const FixedHeightVirtualList = forwardRef(function (
   }))
 
   return (
-    <div ref={viewer} className={`virtual-list-viewer ${className}`} style={{ ...style, height: viewHeight, overflowY: 'auto' }} onScroll={onScroll}>
-      <div className='virtual-list-container' style={{ position: 'relative', height: containerHeight }}>
+    <div
+      ref={viewer}
+      className={`virtual-list-viewer ${className}`}
+      style={{ ...style, position: 'relative', height: viewHeight, overflowY: 'auto' }}
+      onScroll={onScroll}
+    >
+      {/* Phantom div to expand the parent element */}
+      <div className='virtual-list-phantom' style={{ position: 'absolute', width: '100%', height: containerHeight, top: 0, left: 0, zIndex: -1 }}></div>
+      {/* Render area */}
+      <div
+        className='virtual-list-render-area'
+        style={{ position: 'absolute', width: '100%', left: 0, top: 0, transform: `translate3d(0px, ${transformOffset}px, 0px)` }}
+      >
         {items}
       </div>
     </div>
